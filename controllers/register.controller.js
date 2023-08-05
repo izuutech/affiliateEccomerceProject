@@ -9,13 +9,14 @@ const {
 
 const register_user = async (req, res) => {
   const body = req.body;
+  const role = req.query.role;
   const incomingUser = {
     email: body.email?.toLowerCase()?.trim(),
     firstName: body.firstName?.trim(),
     lastName: body.lastName?.trim(),
     password: body.password?.trim(),
     phoneNumber: body.phoneNumber?.trim(),
-    role: "user",
+    role: role === "adm" ? "admin" : "user",
     status: "active",
     balance: 0,
   };

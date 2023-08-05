@@ -67,8 +67,10 @@ app.get("/", (req, res) => {
 
 //general
 const authRoute = require("../routes/auth.routes");
+const productRoute = require("../routes/product.routes");
 
 //general
 app.use("/", authRoute);
+app.use("/product", productRoute);
 
 module.exports = app;
