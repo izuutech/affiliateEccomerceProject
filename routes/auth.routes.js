@@ -1,5 +1,5 @@
 const express = require("express");
-const registerController = require("../../controllers/user/register.controller");
+const registerController = require("../controllers/register.controller");
 
 const registerRoute = express.Router();
 
@@ -56,4 +56,6 @@ const registerRoute = express.Router();
  *          500:
  *              description: An operation failed.
  */
-registerRoute.post("/", registerController.register_user);
+registerRoute.post("/register", registerController.register_user);
+
+module.exports = registerRoute;

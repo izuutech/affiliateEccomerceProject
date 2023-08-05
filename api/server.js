@@ -65,4 +65,10 @@ app.get("/", (req, res) => {
   res.status(200).json({ message: "hello", err: null, data: null });
 });
 
+//general
+const authRoute = require("../routes/auth.routes");
+
+//general
+app.use("/", authRoute);
+
 module.exports = app;

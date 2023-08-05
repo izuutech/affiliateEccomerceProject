@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Joi = require("joi");
 
 const schema = mongoose.Schema;
 
@@ -29,6 +30,10 @@ const userSchema = schema(
       type: String,
       required: [true, "Please enter person's role"],
     },
+    status: {
+      type: String,
+      required: [true, "Please enter person's status"], //active, suspended
+    },
     balance: {
       type: Number,
       default: 0,
@@ -38,6 +43,29 @@ const userSchema = schema(
   { timestamps: true }
 );
 
+const validateUser = (person) => {
+  const schema = Joi.object({
+    email: Joi.string()
+      .email({ minDomainSegments: 2 })
+      .min(5)
+      .max(500)
+      .required()
+      .label("Email"),
+    firstName: Joi.string().min(2).required().label("First name"),
+    lastName: Joi.string().min(2).required().label("Last name"),
+    phoneNumber: Joi.string().required().label("Phone number"),
+    role: Joi.string().valid("user", "admin").required().label("Role"),
+    status: Joi.string()
+      .valid("active", "suspended")
+      .required()
+      .label("Status"),
+    password: Joi.string().min(8).required().label("Password"),
+    balance: Joi.number().required().label("Balance"),
+  });
+
+  return schema.validate(person);
+};
+
 const User = mongoose.model("User", userSchema);
 
-module.exports = User;
+module.exports = { User, validateUser };
