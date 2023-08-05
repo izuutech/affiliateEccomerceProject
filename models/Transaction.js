@@ -15,6 +15,22 @@ const transactionSchema = schema(
       ref: "User",
       required: [true, "Please enter id of the buyer"],
     },
+    amount: {
+      type: Number,
+      required: [true, "Please enter amount of purchase"],
+    },
+    buyerBalanceBefore: {
+      type: Number,
+      required: [true, "Please enter balance of the buyer before debit"],
+    },
+    buyerBalanceAfter: {
+      type: Number,
+      required: [true, "Please enter balance of the buyer after transaction"],
+    },
+    status: {
+      type: String,
+      required: [true, "Please enter transaction status"], //pending,failed,approved
+    },
     affiliate: {
       type: schema.Types.ObjectId,
       ref: "User",

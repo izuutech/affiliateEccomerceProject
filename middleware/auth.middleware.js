@@ -18,13 +18,14 @@ const requireAuth = (req, res, next) => {
         );
         if (person && person.status === "active") {
           res.locals.user = {
-            id: person._id,
+            _id: person._id,
             email: person.email,
+            lastName: person.lastName,
+            firstName: person.firstName,
+            phoneNumber: person.phoneNumber,
             role: person.role,
             status: person.status,
-            vendor: person.vendor,
             balance: person.balance,
-            isPrivate: person.isPrivate,
           };
 
           next();
@@ -65,12 +66,14 @@ const requireAdmin = (req, res, next) => {
 
         if (person && person.status === "active" && person.role === "admin") {
           res.locals.user = {
-            id: person._id,
+            _id: person._id,
             email: person.email,
+            lastName: person.lastName,
+            firstName: person.firstName,
+            phoneNumber: person.phoneNumber,
             role: person.role,
             status: person.status,
             balance: person.balance,
-            isPrivate: person.isPrivate,
           };
 
           next();
