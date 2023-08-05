@@ -10,7 +10,7 @@ const {
 const register_user = async (req, res) => {
   const body = req.body;
   const incomingUser = {
-    email: body.email?.trim(),
+    email: body.email?.toLowerCase()?.trim(),
     firstName: body.firstName?.trim(),
     lastName: body.lastName?.trim(),
     password: body.password?.trim(),

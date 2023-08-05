@@ -1,5 +1,6 @@
 const express = require("express");
 const registerController = require("../controllers/register.controller");
+const loginController = require("../controllers/login.controller");
 
 const registerRoute = express.Router();
 
@@ -8,16 +9,10 @@ const registerRoute = express.Router();
  * @swagger
  * /register:
  *  post:
- *      summary: Register  person temporarily(user/admin)
+ *      summary: Register  user
  *      tags:
- *          - registration
+ *          - auth
  *      parameters:
- *          -   in: body
- *              name: referrer
- *              required: false
- *              schema:
- *                  type: string
- *              description: This is the id of the referrer
  *          -   in: body
  *              name: email
  *              required: true
@@ -57,5 +52,35 @@ const registerRoute = express.Router();
  *              description: An operation failed.
  */
 registerRoute.post("/register", registerController.register_user);
+
+/**
+ * @swagger
+ * /login:
+ *  post:
+ *      summary: Login user
+ *      tags:
+ *          - auth
+ *      parameters:
+ *          -   in: body
+ *              name: email
+ *              required: true
+ *              schema:
+ *                  type: string
+ *              description: This is the person's email
+ *          -   in: body
+ *              name: password
+ *              required: true
+ *              schema:
+ *                  type: string
+ *              description: This is the person's password
+ *      responses:
+ *          200:
+ *              description: User logged in successfully
+ *          400:
+ *              description: Bad request format
+ *          500:
+ *              description: An operation failed.
+ */
+registerRoute.post("/login", loginController.login_user);
 
 module.exports = registerRoute;
