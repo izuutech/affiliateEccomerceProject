@@ -1,8 +1,38 @@
 const express = require("express");
 const productController = require("../controllers/market/product.controller");
-const { requireAdmin } = require("../middleware/auth.middleware");
+const { requireAdmin, requireAuth } = require("../middleware/auth.middleware");
 
 const productRoute = express.Router();
+
+/**
+ * @swagger
+ * /product:
+ *  get:
+ *      summary: Fetch all product
+ *      tags:
+ *          - product
+ *      parameters:
+ *          -   in: query
+ *              name: page
+ *              required: true
+ *              schema:
+ *                  type: string
+ *              description: This is the page to be fetched
+ *          -   in: limit
+ *              name: price
+ *              required: true
+ *              schema:
+ *                  type: string
+ *              description: This is the limit of the number of products to be fetched
+ *      responses:
+ *          200:
+ *              description: Products fetched successfully
+ *          400:
+ *              description: Bad request format
+ *          500:
+ *              description: An operation failed.
+ */
+productRoute.get("/", requireAuth, productController.fetch_all_products);
 
 /**
  * @swagger

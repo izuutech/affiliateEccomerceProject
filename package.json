@@ -9,6 +9,7 @@
     "joi": "^17.9.2",
     "jsonwebtoken": "^9.0.1",
     "mongoose": "^7.4.2",
+    "mongoose-paginate-v2": "^1.7.31",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.0"
   },

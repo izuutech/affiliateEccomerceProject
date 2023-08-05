@@ -1,6 +1,10 @@
 const Product = require("../../models/Product");
 const handlePromise = require("../../utils/handlePromise.utils");
-const { serverError, createSuccess } = require("../../utils/responses.utils");
+const {
+  serverError,
+  createSuccess,
+  successReq,
+} = require("../../utils/responses.utils");
 
 const create_product = async (req, res) => {
   const body = req.body;
@@ -23,4 +27,26 @@ const create_product = async (req, res) => {
   }
 };
 
-module.exports = { create_product };
+const fetch_all_products = async (req, res) => {
+  const page = req.query.page ? req.query.page : 1;
+  const limit = req.query.limit ? req.query.limit : 1;
+  const [products, productsErr] = await handlePromise(
+    Product.paginate(
+      {},
+      {
+        page,
+        limit,
+        collation: {
+          locale: "en",
+        },
+      }
+    )
+  );
+  if (products) {
+    successReq(res, products, "Products fetched successfully");
+  } else {
+    serverError(res, productsErr, "Error fetching products");
+  }
+};
+
+module.exports = { create_product, fetch_all_products };
