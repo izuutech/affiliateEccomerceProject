@@ -57,7 +57,7 @@ registerRoute.post("/register", registerController.register_user);
  * @swagger
  * /login:
  *  post:
- *      summary: Login user
+ *      summary: Login user and admin
  *      tags:
  *          - auth
  *      parameters:
@@ -82,5 +82,22 @@ registerRoute.post("/register", registerController.register_user);
  *              description: An operation failed.
  */
 registerRoute.post("/login", loginController.login_user);
+
+/**
+ * @swagger
+ * /logout:
+ *  get:
+ *      summary: Logout route (user or admin)
+ *      tags:
+ *          - auth
+ *      responses:
+ *          200:
+ *              description: User logged out in successfully
+ *          400:
+ *              description: Bad request format
+ *          500:
+ *              description: An operation failed.
+ */
+registerRoute.get("/logout", loginController.logout_get);
 
 module.exports = registerRoute;

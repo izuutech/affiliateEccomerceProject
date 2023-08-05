@@ -26,7 +26,7 @@ const login_user = async (req, res) => {
         const token = await createToken(user._id);
         const maxAge = 3 * 60 * 60; //3hrs
         if (user.status === "active") {
-          if (user.role === "reseller" || user.role === "vendor") {
+          if (user.role === "user") {
             res
               .status(200)
               .cookie("jwt", token, {
