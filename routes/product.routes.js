@@ -8,7 +8,7 @@ const productRoute = express.Router();
  * @swagger
  * /product:
  *  get:
- *      summary: Fetch all product
+ *      summary: Fetch all products
  *      tags:
  *          - product
  *      parameters:
@@ -75,5 +75,29 @@ productRoute.get("/", requireAuth, productController.fetch_all_products);
  *              description: An operation failed.
  */
 productRoute.post("/", requireAdmin, productController.create_product);
+
+/**
+ * @swagger
+ * /product/{id}:
+ *  get:
+ *      summary: Fetch single product
+ *      tags:
+ *          - product
+ *      parameters:
+ *          -   in: params
+ *              name: id
+ *              required: true
+ *              schema:
+ *                  type: string
+ *              description: This is the id of the product
+ *      responses:
+ *          200:
+ *              description: Product fetched successfully
+ *          400:
+ *              description: Bad request format
+ *          500:
+ *              description: An operation failed.
+ */
+productRoute.get("/:id", requireAuth, productController.fetch_single_product);
 
 module.exports = productRoute;

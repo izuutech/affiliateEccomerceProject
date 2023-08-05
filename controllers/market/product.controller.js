@@ -49,4 +49,14 @@ const fetch_all_products = async (req, res) => {
   }
 };
 
-module.exports = { create_product, fetch_all_products };
+const fetch_single_product = async (req, res) => {
+  const id = req.params.id;
+  const [product, productErr] = await handlePromise(Product.findById(id));
+  if (product) {
+    successReq(res, product, "Product fetched successfully");
+  } else {
+    serverError(res, productErr, "Error fetching product");
+  }
+};
+
+module.exports = { create_product, fetch_all_products, fetch_single_product };
