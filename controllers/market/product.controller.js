@@ -29,7 +29,7 @@ const create_product = async (req, res) => {
 
 const fetch_all_products = async (req, res) => {
   const page = req.query.page ? req.query.page : 1;
-  const limit = req.query.limit ? req.query.limit : 1;
+  const limit = req.query.limit ? req.query.limit : 10;
   const [products, productsErr] = await handlePromise(
     Product.paginate(
       {},

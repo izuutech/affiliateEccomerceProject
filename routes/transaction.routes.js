@@ -1,6 +1,7 @@
 const express = require("express");
 const transactionController = require("../controllers/market/transaction.controller");
 const { requireAuth } = require("../middleware/auth.middleware");
+const ordersController = require("../controllers/market/orders.controller");
 
 const transactionRoute = express.Router();
 
@@ -37,5 +38,22 @@ transactionRoute.get(
   requireAuth,
   transactionController.purchase_product
 );
+
+/**
+ * @swagger
+ * /t/orders:
+ *  get:
+ *      summary: Fetch users orders
+ *      tags:
+ *          - transaction
+ *      responses:
+ *          200:
+ *              description: Orders fetched successfully
+ *          400:
+ *              description: Bad request format
+ *          500:
+ *              description: An operation failed.
+ */
+transactionRoute.get("/orders", requireAuth, ordersController.fetch_all_orders);
 
 module.exports = transactionRoute;

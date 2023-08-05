@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const Joi = require("joi");
+const mongoosePaginate = require("mongoose-paginate-v2");
 
 const schema = mongoose.Schema;
 
@@ -38,6 +38,8 @@ const transactionSchema = schema(
   },
   { timestamps: true }
 );
+
+transactionSchema.plugin(mongoosePaginate);
 
 const Transaction = mongoose.model("Transaction", transactionSchema);
 
