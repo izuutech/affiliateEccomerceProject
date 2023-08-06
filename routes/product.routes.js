@@ -32,7 +32,7 @@ const productRoute = express.Router();
  *          500:
  *              description: An operation failed.
  */
-productRoute.get("/", requireAuth, productController.fetch_all_products);
+productRoute.get("/", productController.fetch_all_products);
 
 /**
  * @swagger
