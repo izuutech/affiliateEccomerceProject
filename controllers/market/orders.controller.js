@@ -9,9 +9,9 @@ const fetch_all_orders = async (req, res) => {
   const filter = query.type === "current" ? { status: "pending" } : {};
 
   const [orders, ordersErr] = await handlePromise(
-    Transaction.find({ buyer: res.locals.user._id, ...filter }).populate(
-      "product"
-    )
+    Transaction.find({ buyer: res.locals.user._id, ...filter })
+      .populate("product")
+      .sort({ createdAt: -1 })
   );
   if (orders) {
     successReq(res, orders, "Orders fetched successfully");
