@@ -19,7 +19,7 @@ const transactionRoute = express.Router();
  *              schema:
  *                  type: string
  *              description: This is the id of the product
- *          -   in: params
+ *          -   in: query
  *              name: ref
  *              required: false
  *              schema:
@@ -37,6 +37,40 @@ transactionRoute.get(
   "/purchase/:id",
   requireAuth,
   transactionController.purchase_product
+);
+
+/**
+ * @swagger
+ * /t/status/{id}:
+ *  put:
+ *      summary: Change transaction status
+ *      tags:
+ *          - transaction
+ *      parameters:
+ *          -   in: params
+ *              name: id
+ *              required: true
+ *              schema:
+ *                  type: string
+ *              description: This is the id of the transaction
+ *          -   in: query
+ *              name: status
+ *              required: false
+ *              schema:
+ *                  type: string
+ *              description: This is the new status of the transaction
+ *      responses:
+ *          200:
+ *              description: Transaction changed successfully
+ *          400:
+ *              description: Bad request format
+ *          500:
+ *              description: An operation failed.
+ */
+transactionRoute.put(
+  "/status/:id",
+  requireAuth,
+  transactionController.change_transaction_status
 );
 
 /**

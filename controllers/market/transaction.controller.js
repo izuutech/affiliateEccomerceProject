@@ -9,7 +9,23 @@ const {
   reqError,
 } = require("../../utils/responses.utils");
 
-const mark_transaction_as_success = async ({
+const change_transaction_status = async ({ req, res }) => {
+  const status = req.query.status;
+  const [changed, changedErr] = await handlePromise(
+    Transaction.findByIdAndUpdate(
+      req.params.id,
+      { status },
+      { returnDocument: "after" }
+    )
+  );
+  if (changed) {
+    successReq(res, changed, "Purchase status changed to " + status);
+  } else {
+    serverError(res, changedErr, "Could not change transaction status");
+  }
+};
+
+const change_transaction_balance = async ({
   res,
   transaction,
   debitedBuyer,
@@ -17,7 +33,7 @@ const mark_transaction_as_success = async ({
   const [marked, markedErr] = await handlePromise(
     Transaction.findByIdAndUpdate(
       transaction._id,
-      { status: "success", buyerBalanceAfter: debitedBuyer.balance },
+      { status: "pending", buyerBalanceAfter: debitedBuyer.balance },
       { returnDocument: "after" }
     )
   );
@@ -76,7 +92,7 @@ const create_transaction = async ({ res, product, buyer, affiliate }) => {
           )
         );
         if (fundAffiliate) {
-          mark_transaction_as_success({
+          change_transaction_balance({
             res,
             transaction: saveTransaction,
             debitedBuyer: debitUser,
@@ -85,7 +101,7 @@ const create_transaction = async ({ res, product, buyer, affiliate }) => {
           serverError(res, fundAffiliateErr, "Could not fund your affiliate");
         }
       } else {
-        mark_transaction_as_success({
+        change_transaction_balance({
           res,
           transaction: saveTransaction,
           debitedBuyer: debitUser,
@@ -124,33 +140,4 @@ const purchase_product = async (req, res) => {
   }
 };
 
-// const add_to_cart = async (req, res) => {
-//     const user=res.locals.user
-//     const [product, productErr] = await handlePromise(Product.findById(id));
-//     if (product && product.price <= loggedInUser.balance) {
-//         const transObj = affiliate
-//             ? {
-//                 product: product._id,
-//                 amount: product.price,
-//                 buyer: user._id,
-//                 status: "pending",
-//                 buyerBalanceBefore: user.balance,
-//                 buyerBalanceAfter: user.balance,
-//                 affiliate: affiliate._id,
-//                 type: "cart",
-//             }
-//             : {
-//                 product: product._id,
-//                 amount: product.price,
-//                 status: "pending",
-//                 buyer: buyer._id,
-//                 buyerBalanceBefore: buyer.balance,
-//                 buyerBalanceAfter: buyer.balance,
-//                 type: "cart",
-//             };
-//     } else {
-//         notFound(res, productErr, "Could not fetch product");
-//     }
-// }
-
-module.exports = { purchase_product };
+module.exports = { change_transaction_status, purchase_product };
