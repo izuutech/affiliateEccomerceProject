@@ -23,6 +23,8 @@ const requireAuth = (req, res, next) => {
             lastName: person.lastName,
             firstName: person.firstName,
             phoneNumber: person.phoneNumber,
+            address: person.address,
+            state: person.state,
             role: person.role,
             status: person.status,
             balance: person.balance,
@@ -73,6 +75,8 @@ const requireAdmin = (req, res, next) => {
             phoneNumber: person.phoneNumber,
             role: person.role,
             status: person.status,
+            address: person.address,
+            state: person.state,
             balance: person.balance,
           };
 

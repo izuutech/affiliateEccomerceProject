@@ -26,6 +26,10 @@ const userSchema = schema(
       type: String,
       required: [true, "Please enter your phone number"],
     },
+    address: {
+      type: String,
+      required: [true, "Please enter your shipping address"],
+    },
     state: {
       type: String,
     },
@@ -58,6 +62,7 @@ const validateUser = (person) => {
     lastName: Joi.string().min(2).required().label("Last name"),
     phoneNumber: Joi.string().required().label("Phone number"),
     state: Joi.string().label("State"),
+    address: Joi.string().label("Address"),
     role: Joi.string().valid("user", "admin").required().label("Role"),
     status: Joi.string()
       .valid("active", "suspended")

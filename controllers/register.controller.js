@@ -16,6 +16,7 @@ const register_user = async (req, res) => {
     lastName: body.lastName?.trim(),
     password: body.password?.trim(),
     phoneNumber: body.phoneNumber?.trim(),
+    address: body.address?.trim(),
     state: body.state?.trim(),
     role: role === "adm" ? "admin" : "user",
     status: "active",
