@@ -9,18 +9,19 @@ const {
   reqError,
 } = require("../../utils/responses.utils");
 
-const change_transaction_status = async ({ req, res }) => {
-  const status = req.query.status;
+const change_transaction_status = async (req, res) => {
+  const status = req?.query?.status;
   const [changed, changedErr] = await handlePromise(
     Transaction.findByIdAndUpdate(
-      req.params.id,
+      req?.params?.id,
       { status },
       { returnDocument: "after" }
     )
   );
   if (changed) {
-    successReq(res, changed, "Purchase status changed to " + status);
+    successReq(res, changed, "Transaction status changed to " + status);
   } else {
+    console.log(status, changedErr);
     serverError(res, changedErr, "Could not change transaction status");
   }
 };
@@ -41,7 +42,7 @@ const change_transaction_balance = async ({
     successReq(
       res,
       marked,
-      "Purchase successful. Product will be shipped to your location in 5 days"
+      "Purchase successful. Product will be shipped to your location in 8 days"
     );
   } else {
     serverError(res, markedErr, "Could not mark transaction as complete");
