@@ -5,16 +5,12 @@ const { serverError, successReq } = require("../../utils/responses.utils");
 const fetch_all_orders = async (req, res) => {
   const page = req.query.page ? req.query.page : 1;
   const limit = req.query.limit ? req.query.limit : 10;
+  const query = req.query;
+  const filter = query.type === "current" ? { status: "pending" } : {};
+
   const [orders, ordersErr] = await handlePromise(
-    Transaction.paginate(
-      {},
-      {
-        page,
-        limit,
-        collation: {
-          locale: "en",
-        },
-      }
+    Transaction.find({ buyer: res.locals.user._id, ...filter }).populate(
+      "product"
     )
   );
   if (orders) {

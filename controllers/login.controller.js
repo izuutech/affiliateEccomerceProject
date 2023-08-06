@@ -42,7 +42,12 @@ const login_user = async (req, res) => {
                   firstName: user.firstName,
                   lastName: user.lastName,
                   email: user.email,
-                  id: user._id,
+                  phoneNumber: user.phoneNumber,
+                  address: user.address,
+                  state: user.state,
+                  status: user.status,
+                  balance: user.balance,
+                  _id: user._id,
                 },
               });
           } else if (user.role === "admin") {
@@ -65,7 +70,12 @@ const login_user = async (req, res) => {
                   firstName: user.firstName,
                   lastName: user.lastName,
                   email: user.email,
-                  id: user._id,
+                  phoneNumber: user.phoneNumber,
+                  address: user.address,
+                  state: user.state,
+                  status: user.status,
+                  balance: user.balance,
+                  _id: user._id,
                 },
               });
           }

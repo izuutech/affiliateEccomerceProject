@@ -29,7 +29,11 @@ const transactionSchema = schema(
     },
     status: {
       type: String,
-      required: [true, "Please enter transaction status"], //pending,failed,approved
+      required: [true, "Please enter transaction status"], //pending,failed,success
+    },
+    type: {
+      type: String,
+      required: [true, "Please enter transaction type"], //cart or order
     },
     affiliate: {
       type: schema.Types.ObjectId,

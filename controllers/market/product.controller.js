@@ -10,6 +10,8 @@ const create_product = async (req, res) => {
   const body = req.body;
   const incoming = {
     title: body.title?.trim(),
+    summary: body.summary?.trim(),
+    description: body.description?.trim(),
     price: body.price,
     image: body.image?.trim(),
     referrerPercent: body.referrerPercent,

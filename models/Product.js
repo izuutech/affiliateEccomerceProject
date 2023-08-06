@@ -13,6 +13,14 @@ const productSchema = schema(
       type: Number,
       required: [true, "Please enter price of product"],
     },
+    summary: {
+      type: String,
+      required: [true, "Please enter summary of product"],
+    },
+    description: {
+      type: String,
+      required: [true, "Please enter description of product"],
+    },
     image: {
       type: String,
       required: [true, "Please enter image link"],

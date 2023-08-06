@@ -55,6 +55,18 @@ productRoute.get("/", requireAuth, productController.fetch_all_products);
  *                  type: string
  *              description: This is the price of the product
  *          -   in: body
+ *              name: summary
+ *              required: true
+ *              schema:
+ *                  type: string
+ *              description: This is the product's summary
+ *          -   in: body
+ *              name: description
+ *              required: true
+ *              schema:
+ *                  type: string
+ *              description: This is the product's description
+ *          -   in: body
  *              name: image
  *              required: true
  *              schema:

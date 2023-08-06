@@ -42,6 +42,7 @@ const create_transaction = async ({ res, product, buyer, affiliate }) => {
         buyerBalanceBefore: buyer.balance,
         buyerBalanceAfter: buyer.balance,
         affiliate: affiliate._id,
+        type: "order",
       }
     : {
         product: product._id,
@@ -50,6 +51,7 @@ const create_transaction = async ({ res, product, buyer, affiliate }) => {
         buyer: buyer._id,
         buyerBalanceBefore: buyer.balance,
         buyerBalanceAfter: buyer.balance,
+        type: "order",
       };
   const transaction = new Transaction(transObj);
   const [saveTransaction, saveTransactionErr] = await handlePromise(
@@ -121,5 +123,34 @@ const purchase_product = async (req, res) => {
     notFound(res, productErr, "Could not fetch product");
   }
 };
+
+// const add_to_cart = async (req, res) => {
+//     const user=res.locals.user
+//     const [product, productErr] = await handlePromise(Product.findById(id));
+//     if (product && product.price <= loggedInUser.balance) {
+//         const transObj = affiliate
+//             ? {
+//                 product: product._id,
+//                 amount: product.price,
+//                 buyer: user._id,
+//                 status: "pending",
+//                 buyerBalanceBefore: user.balance,
+//                 buyerBalanceAfter: user.balance,
+//                 affiliate: affiliate._id,
+//                 type: "cart",
+//             }
+//             : {
+//                 product: product._id,
+//                 amount: product.price,
+//                 status: "pending",
+//                 buyer: buyer._id,
+//                 buyerBalanceBefore: buyer.balance,
+//                 buyerBalanceAfter: buyer.balance,
+//                 type: "cart",
+//             };
+//     } else {
+//         notFound(res, productErr, "Could not fetch product");
+//     }
+// }
 
 module.exports = { purchase_product };

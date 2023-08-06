@@ -16,6 +16,7 @@ const swaggerOptions = {
     "./routes/auth.routes.js",
     "./routes/product.routes.js",
     "./routes/transaction.routes.js",
+    "./routes/user.routes.js",
   ],
 };
 
