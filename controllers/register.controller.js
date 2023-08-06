@@ -16,6 +16,7 @@ const register_user = async (req, res) => {
     lastName: body.lastName?.trim(),
     password: body.password?.trim(),
     phoneNumber: body.phoneNumber?.trim(),
+    state: body.state?.trim(),
     role: role === "adm" ? "admin" : "user",
     status: "active",
     balance: 0,
@@ -39,7 +40,7 @@ const register_user = async (req, res) => {
           const user = new User({ ...incomingUser, password: hash });
           const [saved, savedErr] = await handlePromise(user.save());
           if (saved) {
-            successReq(res, saved, "Registration successful");
+            successReq(res, saved, "Registration successful. Please login");
           } else {
             serverError(res, savedErr, "Could not register user");
           }

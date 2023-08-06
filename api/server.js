@@ -14,7 +14,7 @@ const swaggerDocs = require("../swaggerConfig");
 const MONGO_URI = process.env.MONGO_URI;
 // const MONGO_URI = process.env.LOCAL_MONGO_URI;
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 
 mongoose
   .connect(MONGO_URI, {
