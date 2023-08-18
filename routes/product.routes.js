@@ -2,7 +2,7 @@ const express = require("express");
 const multer = require("multer");
 const productController = require("../controllers/market/product.controller");
 const { requireAdmin, requireAuth } = require("../middleware/auth.middleware");
-const upload = multer({ dest: "./temp/uploads/" });
+const upload = multer({ dest: "/tmp/" });
 
 const productRoute = express.Router();
 
