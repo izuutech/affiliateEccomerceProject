@@ -1,6 +1,8 @@
 const express = require("express");
+const multer = require("multer");
 const productController = require("../controllers/market/product.controller");
 const { requireAdmin, requireAuth } = require("../middleware/auth.middleware");
+const upload = multer({ dest: "./temp/uploads/" });
 
 const productRoute = express.Router();
 
@@ -86,6 +88,7 @@ productRoute.get("/", productController.fetch_all_products);
  *          500:
  *              description: An operation failed.
  */
+productRoute.use(upload.single("image"));
 productRoute.post("/", requireAdmin, productController.create_product);
 
 /**
